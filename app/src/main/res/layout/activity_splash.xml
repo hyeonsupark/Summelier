@@ -1,0 +1,72 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash"
+    android:orientation="vertical"
+    tools:context=".SplashActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/splash_et_id"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:hint="ID"
+            android:inputType="textPhonetic"
+            android:maxLength="20"
+            android:singleLine="true"/>
+
+        <EditText
+            android:id="@+id/splash_et_password"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:maxLength="20"
+            android:singleLine="true" />
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/splash_btn_sign_up"
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/selector_btn_normal"
+                android:text="Sign Up"
+                android:textColor="#ffffff" />
+
+            <Button
+                android:id="@+id/splash_btn_sign_in"
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="2dp"
+                android:background="@drawable/selector_btn_normal"
+                android:text="Sign In"
+                android:textColor="#ffffff" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

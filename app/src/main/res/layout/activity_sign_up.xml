@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash"
+    android:orientation="vertical"
+    tools:context="kr.applepi.summelier.SignUpActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/sign_up_et_name"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:hint="Name"
+            android:inputType="textPersonName"
+            android:maxLength="20"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/sign_up_et_id"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:hint="ID"
+            android:inputType="textPhonetic"
+            android:maxLength="20"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/sign_up_et_password"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:maxLength="20"
+            android:singleLine="true" />
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="45dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/selector_btn_normal"
+            android:text="Sign Up"
+            android:textColor="#ffffff" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
