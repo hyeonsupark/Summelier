@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <TextView
+        android:id="@+id/TV_TITLE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18pt"
+        android:layout_gravity="center_horizontal"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <RatingBar
+            android:id="@+id/RATE_AVERAGE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            style="@style/starRatingBar" />
+
+        <TextView
+            android:id="@+id/TV_ARTICLE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/RATE_AVERAGE"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:textAlignment="center"
+            android:padding="5dp"
+            android:textSize="10pt"
+            />
+
+        <Button
+            android:id="@+id/BTN_RATE"
+            android:layout_width="261.5dp"
+            android:layout_height="41.5dp"
+            android:layout_below="@+id/TV_ARTICLE"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/selector_btn_write_review" />
+    </RelativeLayout>
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:orientation="horizontal" >-->
+
+        <!--<Button-->
+            <!--android:id="@+id/BTN_SHARE"-->
+            <!--android:layout_width="103dp"-->
+            <!--android:layout_height="66.5dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/btn_share" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/BTN_FIND_LOCATION"-->
+            <!--android:layout_width="103dp"-->
+            <!--android:layout_height="66.5dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/sel_roadsearch" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/BTN_911"-->
+            <!--android:layout_width="103dp"-->
+            <!--android:layout_height="66.5dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/sel_nineoneone" />-->
+    <!--</LinearLayout>-->
+
+</LinearLayout>

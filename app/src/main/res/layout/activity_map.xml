@@ -25,6 +25,7 @@
         android:layout_alignParentBottom="true">
 
         <Button
+            android:id="@+id/map_btn_rank"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="182"
@@ -32,12 +33,7 @@
 
 
         <Button
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_weight="181"
-            android:background="@drawable/selector_btn_emergency" />
-
-        <Button
+            android:id="@+id/map_btn_community"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="175"
@@ -45,6 +41,7 @@
 
 
         <Button
+            android:id="@+id/map_btn_setting"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="182"
