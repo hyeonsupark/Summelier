@@ -24,6 +24,7 @@ public class SplashActivity extends ActivityPlus {
     EditText etId, etPassword;
     Button btnSignUp, btnSignIn;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

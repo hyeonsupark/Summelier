@@ -67,6 +67,10 @@
             android:name=".ReviewActivity"
             android:label="@string/title_activity_review" >
         </activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/title_activity_profile" >
+        </activity>
     </application>
 
 </manifest>

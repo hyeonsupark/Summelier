@@ -8,5 +8,6 @@
     <string name="title_activity_map">MapActivity</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_review">ReviewActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
 
 </resources>
