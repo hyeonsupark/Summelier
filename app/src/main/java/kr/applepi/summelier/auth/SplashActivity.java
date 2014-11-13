@@ -1,5 +1,6 @@
 package kr.applepi.summelier.auth;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,7 +22,8 @@ import kr.applepi.summelier.api.ResultListener;
 
 public class SplashActivity extends ActivityPlus {
 
-    EditText etId, etPassword;
+	Api api;
+	EditText etId, etPassword;
     Button btnSignUp, btnSignIn;
 
     @Override
@@ -31,9 +33,23 @@ public class SplashActivity extends ActivityPlus {
         setContentView(R.layout.activity_splash);
 
         initUi();
+
+	    view_(R.id.splash_layout).setVisibility(View.INVISIBLE);
+	    api = Api.get(this);
+	    api.loginCheck(new ResultListener() {
+		    @Override
+		    public void onResult(boolean ok, JSONObject res) throws Exception {
+			    if(!ok) {
+				    view_(R.id.splash_layout).setVisibility(View.VISIBLE);
+			    }
+			    else {
+				    gotoMain();
+			    }
+		    }
+	    });
     }
 
-    private void initUi() {
+	private void initUi() {
         etId = (EditText) findViewById(R.id.splash_et_id);
         etPassword = (EditText) findViewById(R.id.splash_et_password);
         btnSignUp = (Button) findViewById(R.id.splash_btn_sign_up);
@@ -61,7 +77,7 @@ public class SplashActivity extends ActivityPlus {
 
 	private void trySignIn() {
 		Log.d("로그인 시도", "렛츠고");
-		Api api = Api.get(this);
+
 		api.loginBySummelier(
 				etId.getText().toString(),
 				etPassword.getText().toString(),
@@ -70,9 +86,7 @@ public class SplashActivity extends ActivityPlus {
 					public void onResult(boolean ok, JSONObject res) throws Exception {
 						Log.d("로그인 결과", res.toString());
 						if (ok) {
-							Intent mIntent = new Intent(SplashActivity.this, MainActivity.class);
-							startActivity(mIntent);
-							finish();
+							gotoMain();
 						} else {
 							toast("로그인이 안되네요. " + res.getString("message"), Toast.LENGTH_LONG);
 						}
@@ -81,4 +95,10 @@ public class SplashActivity extends ActivityPlus {
 		);
 	}
 
+
+	private void gotoMain() {
+		Intent mIntent = new Intent(SplashActivity.this, MainActivity.class);
+		startActivity(mIntent);
+		finish();
+	}
 }
