@@ -14,11 +14,13 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/splash_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
         <EditText
             android:id="@+id/splash_et_id"
