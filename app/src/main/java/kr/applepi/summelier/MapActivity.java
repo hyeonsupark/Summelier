@@ -1,11 +1,15 @@
 package kr.applepi.summelier;
 
+import android.app.AlertDialog;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -18,7 +22,12 @@ public class MapActivity extends FragmentActivity implements
 
     private GoogleMap map;
 
-    private Button btnRank, btnCommunity, btnSetting;
+    private Button btnRank, btnCommunity, btnSetting, btnRate;
+    private TextView tvTitle, tvArticle;
+
+    private RatingBar ratingBar;
+
+    private AlertDialog dialog;
 
     private boolean firstCameraMovingFlag = true;
 
@@ -67,7 +76,26 @@ public class MapActivity extends FragmentActivity implements
 
     @Override
     public void onInfoWindowClick(Marker marker) {
+        LayoutInflater inflater = LayoutInflater.from(MapActivity.this);
+        View v = inflater.inflate(R.layout.dialog_marker, null);
 
+        tvArticle = (TextView) v.findViewById(R.id.TV_ARTICLE);
+        tvTitle = (TextView) v.findViewById(R.id.TV_TITLE);
+
+        btnRate = (Button) v.findViewById(R.id.BTN_RATE);
+
+        ratingBar = (RatingBar) v.findViewById(R.id.RATE_AVERAGE);
+        ratingBar.setRating(4.3F);
+        ratingBar.setIsIndicator(true);
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(
+                MapActivity.this);
+        tvTitle.setText(marker.getTitle());
+        tvArticle.setText(marker.getSnippet());
+        alert.setView(v);
+
+        dialog = alert.create();
+        dialog.show();
     }
 
     @Override

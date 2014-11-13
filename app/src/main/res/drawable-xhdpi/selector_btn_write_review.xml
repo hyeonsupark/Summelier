@@ -4,7 +4,7 @@
 
 	<item
 	    android:state_pressed="true"
-	    android:drawable="@drawable/btn_sel_write_review" />
+	    android:drawable="@drawable/btn_write_review_sel" />
 	<item
 	    android:state_pressed="false"
 	    android:drawable="@drawable/btn_write_review" />
