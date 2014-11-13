@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/splash"
     android:orientation="vertical"
-    tools:context="kr.applepi.summelier.SignUpActivity">
+    tools:context="kr.applepi.summelier.auth.SignUpActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

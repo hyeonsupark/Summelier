@@ -1,6 +1,7 @@
 package kr.applepi.summelier;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -16,6 +17,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapActivity extends FragmentActivity implements
         GoogleMap.OnMyLocationChangeListener, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnInfoWindowClickListener, View.OnClickListener {
@@ -30,6 +32,8 @@ public class MapActivity extends FragmentActivity implements
     private AlertDialog dialog;
 
     private boolean firstCameraMovingFlag = true;
+
+    private String placeTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,41 @@ public class MapActivity extends FragmentActivity implements
         map.setOnMyLocationButtonClickListener(this);
         map.setOnMyLocationChangeListener(this);
         map.setOnInfoWindowClickListener(this);
+
+        addMarker();
+    }
+
+    void addMarker() {
+        addMarker(37.657843, 127.083503, "서울특별시", "천정샘", "2014 1분기 적합");
+        addMarker(37.59422,126.9006, "서울특별시", "만수", "2014 1분기 고갈");
+        addMarker(37.578708, 126.946781, "서울특별시", "봉화천", "2014 1분기 적합");
+        addMarker(37.571858, 126.946718, "서울특별시", "장수천", "2014 1분기 총대장군균");
+        addMarker(37.510352, 126.856179, "서울특별시", "다락골", "2014 1분기 총대장군균, 일반세균");
+        addMarker(37.580022, 126.815661, "서울특별시", "꿩고개", "2014 1분기 적합");
+        addMarker(37.446061, 126.914551, "서울특별시", "옹달샘", "2014 1분기 총대장군균, 일반세균");
+        addMarker(37.474841, 127.010986, "서울특별시", "우면정", "2014 1분기 적합");
+        addMarker(37.436211, 127.021158, "경기도", "쉬어가는 숲", "2014 1분기 적합");
+        addMarker(37.327933, 128.784695, "강원도", "화암약수", "2014 1분기 적합");
+        addMarker(37.282368, 126.547783, "경기도", "구봉도약수터", "2014 1분기 총대장균");
+        addMarker(35.106426, 126.781404, "전라남도", "평산리정", "2014 1분기 적합");
+        addMarker(35.8210123,127.8193784, "경상남도", "산산우물", "2014 1분기 적합");
+        addMarker(35.372939, 127.910702, "충청남도", "충추발군 약수터", "2014 1분기 적합");
+        addMarker(36.305842, 129.091733, "경상북도", "주왕산 제1 약수터", "2014 1분기 적합");
+        addMarker(36.3650257,129.2425644, "경상북도", "봉산 저수지 약수터", "2014 1분기 적합");
+        addMarker(35.204107, 128.528356, "경상남도", "무학산 기도원 약수터", "2014 1분기 적합");
+        addMarker(36.382708, 127.445788, "대구광역시", "계족산약수터", "2014 1분기 적합");
+    }
+
+    boolean firstMoved = false;
+    private void addMarker(double lat, double lon, String legion, String title, String snippet)
+    {
+        map.addMarker(new MarkerOptions().position(new LatLng(lat, lon)).title(title).snippet(snippet));
+
+        if(!firstMoved) {
+            firstMoved = true;
+            map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(lat, lon)));
+            map.animateCamera(CameraUpdateFactory.zoomTo(10));
+        }
     }
 
 
@@ -71,11 +110,19 @@ public class MapActivity extends FragmentActivity implements
                 break;
             case R.id.map_btn_setting:
                 break;
+            case R.id.BTN_RATE:
+                Intent mIntent = new Intent(MapActivity.this, ReviewActivity.class);
+                mIntent.putExtra("title", placeTitle);
+                startActivity(mIntent);
+
+                break;
+
         }
     }
 
     @Override
     public void onInfoWindowClick(Marker marker) {
+        placeTitle = marker.getTitle();
         LayoutInflater inflater = LayoutInflater.from(MapActivity.this);
         View v = inflater.inflate(R.layout.dialog_marker, null);
 
@@ -83,6 +130,7 @@ public class MapActivity extends FragmentActivity implements
         tvTitle = (TextView) v.findViewById(R.id.TV_TITLE);
 
         btnRate = (Button) v.findViewById(R.id.BTN_RATE);
+        btnRate.setOnClickListener(this);
 
         ratingBar = (RatingBar) v.findViewById(R.id.RATE_AVERAGE);
         ratingBar.setRating(4.3F);
@@ -90,7 +138,7 @@ public class MapActivity extends FragmentActivity implements
 
         AlertDialog.Builder alert = new AlertDialog.Builder(
                 MapActivity.this);
-        tvTitle.setText(marker.getTitle());
+        tvTitle.setText(placeTitle);
         tvArticle.setText(marker.getSnippet());
         alert.setView(v);
 

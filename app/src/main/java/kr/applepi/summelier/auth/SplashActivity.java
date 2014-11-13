@@ -1,4 +1,4 @@
-package kr.applepi.summelier;
+package kr.applepi.summelier.auth;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+
+import kr.applepi.summelier.MainActivity;
+import kr.applepi.summelier.R;
 
 
 public class SplashActivity extends Activity {

@@ -1,8 +1,10 @@
-package kr.applepi.summelier;
+package kr.applepi.summelier.auth;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
+
+import kr.applepi.summelier.R;
 
 // 사인업하면 액티비티 종료하고 로그인 화면보내삼
 
