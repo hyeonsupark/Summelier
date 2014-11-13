@@ -1,18 +1,25 @@
 package kr.applepi.summelier.auth;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import org.json.JSONObject;
+
+import kr.applepi.summelier.ActivityPlus;
 import kr.applepi.summelier.MainActivity;
 import kr.applepi.summelier.R;
+import kr.applepi.summelier.api.Api;
+import kr.applepi.summelier.api.ResultListener;
 
 
-public class SplashActivity extends Activity {
+
+public class SplashActivity extends ActivityPlus {
 
     EditText etId, etPassword;
     Button btnSignUp, btnSignIn;
@@ -44,14 +51,34 @@ public class SplashActivity extends Activity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mIntent = new Intent(SplashActivity.this, MainActivity.class);
-                startActivity(mIntent);
-                finish();
+	            trySignIn();
             }
         });
 
 
     }
 
+
+	private void trySignIn() {
+		Log.d("로그인 시도", "렛츠고");
+		Api api = Api.get(this);
+		api.loginBySummelier(
+				etId.getText().toString(),
+				etPassword.getText().toString(),
+				new ResultListener() {
+					@Override
+					public void onResult(boolean ok, JSONObject res) throws Exception {
+						Log.d("로그인 결과", res.toString());
+						if (ok) {
+							Intent mIntent = new Intent(SplashActivity.this, MainActivity.class);
+							startActivity(mIntent);
+							finish();
+						} else {
+							toast("로그인이 안되네요. " + res.getString("message"), Toast.LENGTH_LONG);
+						}
+					}
+				}
+		);
+	}
 
 }

@@ -178,9 +178,16 @@ public class Api {
     DefaultHttpClient _client;
     Charset _utf8;
 
-    public Api(Context context) {
+	public static Api get(Context context)
+	{
+		api._context = context;
+		return api;
+	}
+	private static Api api = new Api();
+
+    private Api() {
         _encoding = "utf-8";
-        _context = context;
+	    _context = null;
         _client = new DefaultHttpClient();
         _utf8 = Charset.forName("UTF-8");
     }
