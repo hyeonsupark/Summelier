@@ -19,6 +19,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import kr.applepi.summelier.review.ReviewActivity;
+
 public class MapActivity extends FragmentActivity implements
         GoogleMap.OnMyLocationChangeListener, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnInfoWindowClickListener, View.OnClickListener {
 
@@ -112,7 +114,7 @@ public class MapActivity extends FragmentActivity implements
                 break;
             case R.id.BTN_RATE:
                 Intent mIntent = new Intent(MapActivity.this, ReviewActivity.class);
-                mIntent.putExtra("title", placeTitle);
+                mIntent.putExtra("placeTitle", placeTitle);
                 startActivity(mIntent);
 
                 break;

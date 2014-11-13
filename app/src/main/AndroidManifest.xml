@@ -64,7 +64,7 @@
             android:label="@string/title_activity_main" >
         </activity>
         <activity
-            android:name=".ReviewActivity"
+            android:name=".review.ReviewActivity"
             android:label="@string/title_activity_review" >
         </activity>
         <activity

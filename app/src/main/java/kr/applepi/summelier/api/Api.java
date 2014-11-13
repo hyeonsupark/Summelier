@@ -178,6 +178,8 @@ public class Api {
     DefaultHttpClient _client;
     Charset _utf8;
 
+    public String name, profileUrl;
+
 	public static Api get(Context context)
 	{
 		api._context = context;

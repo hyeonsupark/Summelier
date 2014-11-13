@@ -1,6 +1,5 @@
 package kr.applepi.summelier.auth;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,8 +11,8 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
-import kr.applepi.summelier.ActivityPlus;
-import kr.applepi.summelier.MainActivity;
+import kr.applepi.summelier.util.ActivityPlus;
+import kr.applepi.summelier.ProfileActivity;
 import kr.applepi.summelier.R;
 import kr.applepi.summelier.api.Api;
 import kr.applepi.summelier.api.ResultListener;
@@ -40,10 +39,13 @@ public class SplashActivity extends ActivityPlus {
 	    api.loginCheck(new ResultListener() {
 		    @Override
 		    public void onResult(boolean ok, JSONObject res) throws Exception {
+                Log.d("시발 로그인체크", res.toString());
 			    if(!ok) {
 				    view_(R.id.splash_layout).setVisibility(View.VISIBLE);
 			    }
 			    else {
+                    api.name = res.getString("name");
+                    api.profileUrl = res.getString("profile_url");
 				    gotoMain();
 			    }
 		    }
@@ -87,6 +89,8 @@ public class SplashActivity extends ActivityPlus {
 					public void onResult(boolean ok, JSONObject res) throws Exception {
 						Log.d("로그인 결과", res.toString());
 						if (ok) {
+                            api.name = res.getString("name");
+                            api.profileUrl = res.getString("profile_url");
 							gotoMain();
 						} else {
 							toast("로그인이 안되네요. " + res.getString("message"), Toast.LENGTH_LONG);
@@ -98,7 +102,7 @@ public class SplashActivity extends ActivityPlus {
 
 
 	private void gotoMain() {
-		Intent mIntent = new Intent(SplashActivity.this, MainActivity.class);
+		Intent mIntent = new Intent(SplashActivity.this, ProfileActivity.class);
 		startActivity(mIntent);
 		finish();
 	}

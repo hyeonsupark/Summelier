@@ -1,4 +1,4 @@
-package kr.applepi.summelier;
+package kr.applepi.summelier.util;
 
 import android.app.Activity;
 import android.app.AlertDialog;

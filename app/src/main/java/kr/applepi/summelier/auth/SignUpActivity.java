@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
-import kr.applepi.summelier.ActivityPlus;
+import kr.applepi.summelier.util.ActivityPlus;
 import kr.applepi.summelier.R;
 import kr.applepi.summelier.api.Api;
 import kr.applepi.summelier.api.ResultListener;
