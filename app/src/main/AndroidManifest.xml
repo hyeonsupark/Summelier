@@ -71,6 +71,14 @@
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile" >
         </activity>
+        <activity
+            android:name=".community.BoardsActivity"
+            android:label="@string/title_activity_boards" >
+        </activity>
+        <activity
+            android:name=".community.BoradActivity"
+            android:label="@string/title_activity_borad" >
+        </activity>
     </application>
 
 </manifest>

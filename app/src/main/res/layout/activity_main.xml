@@ -5,6 +5,11 @@
     android:orientation="vertical"
     tools:context="kr.applepi.summelier.MainActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/title"></RelativeLayout>
+
     <ImageButton
         android:id="@+id/main_btn_regional"
         android:layout_width="match_parent"

@@ -9,5 +9,7 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_review">ReviewActivity</string>
     <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_boards">BoardsActivity</string>
+    <string name="title_activity_borad">BoradActivity</string>
 
 </resources>

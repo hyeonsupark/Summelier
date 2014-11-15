@@ -6,11 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.android.volley.Network;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.ImageLoader.ImageCache;
@@ -18,6 +16,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 
 import kr.applepi.summelier.R;
+import kr.applepi.summelier.util.BitmapLruCache;
 
 import static kr.applepi.summelier.R.id.REVIEW_PROFILE_NAME;
 import static kr.applepi.summelier.R.id.REVIEW_PROFILE_PHOTO;
@@ -31,7 +30,7 @@ public class ReviewAdapter extends ArrayAdapter<ReviewData> {
     public ReviewAdapter(Context context) {
         super(context, R.layout.row_review);
         queue = Volley.newRequestQueue(context);
-        loader = new ImageLoader(queue, new BitmapCache());
+        loader = new ImageLoader(queue, new BitmapLruCache());
     }
 
     class BitmapCache implements ImageCache {
@@ -68,7 +67,7 @@ public class ReviewAdapter extends ArrayAdapter<ReviewData> {
         RatingBar rating = (RatingBar) fv(REVIEW_PROFILE_RATING);
         TextView text = (TextView) fv(REVIEW_PROFILE_TEXT);
 
-        image.setImageBitmap(data.image);
+        image.setImageUrl(data.profileUrl, loader);
         rating.setRating(data.rating);
         rating.setIsIndicator(true);
         name.setText(data.name);
