@@ -12,5 +12,6 @@
     <string name="title_activity_boards">BoardsActivity</string>
     <string name="title_activity_board">BoardActivity</string>
     <string name="title_activity_write">WriteActivity</string>
+    <string name="title_activity_rank">RankActivity</string>
 
 </resources>

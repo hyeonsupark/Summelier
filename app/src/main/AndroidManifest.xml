@@ -83,6 +83,10 @@
             android:name=".community.WriteActivity"
             android:label="@string/title_activity_write" >
         </activity>
+        <activity
+            android:name=".rank.RankActivity"
+            android:label="@string/title_activity_rank" >
+        </activity>
     </application>
 
 </manifest>
