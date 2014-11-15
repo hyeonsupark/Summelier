@@ -12,11 +12,11 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.ImageLoader.ImageCache;
-import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 
 import kr.applepi.summelier.R;
 import kr.applepi.summelier.util.BitmapLruCache;
+import kr.applepi.summelier.util.RoundedNetworkImageView;
 
 import static kr.applepi.summelier.R.id.REVIEW_PROFILE_NAME;
 import static kr.applepi.summelier.R.id.REVIEW_PROFILE_PHOTO;
@@ -62,7 +62,7 @@ public class ReviewAdapter extends ArrayAdapter<ReviewData> {
 
         ReviewData data = getItem(position);
         this.convertView = convertView;
-        NetworkImageView image = (NetworkImageView) fv(REVIEW_PROFILE_PHOTO);
+        RoundedNetworkImageView image = (RoundedNetworkImageView) fv(REVIEW_PROFILE_PHOTO);
         TextView name = (TextView) fv(REVIEW_PROFILE_NAME);
         RatingBar rating = (RatingBar) fv(REVIEW_PROFILE_RATING);
         TextView text = (TextView) fv(REVIEW_PROFILE_TEXT);

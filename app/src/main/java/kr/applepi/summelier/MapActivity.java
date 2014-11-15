@@ -19,6 +19,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import kr.applepi.summelier.community.BoardsActivity;
 import kr.applepi.summelier.review.ReviewActivity;
 
 public class MapActivity extends FragmentActivity implements
@@ -109,6 +110,8 @@ public class MapActivity extends FragmentActivity implements
             case R.id.map_btn_rank:
                 break;
             case R.id.map_btn_community:
+                startActivity(new Intent(MapActivity.this, BoardsActivity.class));
+
                 break;
             case R.id.map_btn_setting:
                 break;

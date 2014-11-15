@@ -10,6 +10,7 @@
     <string name="title_activity_review">ReviewActivity</string>
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="title_activity_boards">BoardsActivity</string>
-    <string name="title_activity_borad">BoradActivity</string>
+    <string name="title_activity_board">BoardActivity</string>
+    <string name="title_activity_write">WriteActivity</string>
 
 </resources>

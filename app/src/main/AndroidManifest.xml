@@ -76,8 +76,12 @@
             android:label="@string/title_activity_boards" >
         </activity>
         <activity
-            android:name=".community.BoradActivity"
-            android:label="@string/title_activity_borad" >
+            android:name=".community.BoardActivity"
+            android:label="@string/title_activity_board" >
+        </activity>
+        <activity
+            android:name=".community.WriteActivity"
+            android:label="@string/title_activity_write" >
         </activity>
     </application>
 

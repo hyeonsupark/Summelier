@@ -11,11 +11,11 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
-import kr.applepi.summelier.util.ActivityPlus;
-import kr.applepi.summelier.ProfileActivity;
+import kr.applepi.summelier.MainActivity;
 import kr.applepi.summelier.R;
 import kr.applepi.summelier.api.Api;
 import kr.applepi.summelier.api.ResultListener;
+import kr.applepi.summelier.util.ActivityPlus;
 
 
 
@@ -102,7 +102,7 @@ public class SplashActivity extends ActivityPlus {
 
 
 	private void gotoMain() {
-		Intent mIntent = new Intent(SplashActivity.this, ProfileActivity.class);
+		Intent mIntent = new Intent(SplashActivity.this, MainActivity.class);
 		startActivity(mIntent);
 		finish();
 	}
