@@ -1,54 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@drawable/review"
-    android:orientation="horizontal" >
+    android:padding="10dp"
+    android:orientation="horizontal">
 
-    <kr.applepi.summelier.util.RoundedNetworkImageView
-        android:id="@+id/REVIEW_PROFILE_PHOTO"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"/>
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
-        <RelativeLayout
+        <kr.applepi.summelier.util.RoundedNetworkImageView
+            android:id="@+id/review_iv_profile"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/REVIEW_PROFILE_NAME"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/review_iv_profile"
+            android:layout_toRightOf="@+id/review_iv_profile"
+            android:text="박현수"
+            android:textColor="#209fc6"
+            android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/REVIEW_PROFILE_NAME"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginTop="10dp"
-                android:padding="2dp"
-                android:text="박재성"
-                android:textColor="#209fc6" />
-
-            <RatingBar
-                android:id="@+id/REVIEW_PROFILE_RATING"
-                android:layout_width="70dp"
-                android:layout_height="14dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:numStars="5"
-                android:stepSize="0.5"
-                style="@style/smallStarRatingBar"/>
-            
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/review_tv_timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:text="1분 전"
+            android:textColor="#8d8d8d"
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/REVIEW_PROFILE_TEXT"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:padding="2dp"
-            android:text="으아아알마ㅣ너러ㅏㅣㄴㅇ코ㅓㅏ론ㅇ머ㅏ론어ㅏㅗ러ㅏㅁㄴ오ㅓㅏㄻㄴ유회ㅏ롬ㄴ어ㅏㅗㄻㄴ어ㅏㅗㅓㅏㅁㄴㅇㄹgdfdgfdgfsdgfsdgfsdgfsdgfsdgfsdgfsdgfsdgfsdgfsdgfsdgfsdgf" />
-    </LinearLayout>
+            android:layout_below="@+id/REVIEW_PROFILE_NAME"
+            android:layout_alignLeft="@+id/REVIEW_PROFILE_NAME"
+
+            android:text="asdf" />
+
+        <RatingBar
+            android:id="@+id/REVIEW_PROFILE_RATING"
+            style="@style/smallStarRatingBar"
+            android:layout_width="70dp"
+            android:layout_height="14dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:numStars="5"
+            android:stepSize="0.5" />
+    </RelativeLayout>
+
 
 </LinearLayout>

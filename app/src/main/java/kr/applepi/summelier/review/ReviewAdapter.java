@@ -1,7 +1,6 @@
 package kr.applepi.summelier.review;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,72 +10,70 @@ import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.ImageLoader.ImageCache;
 import com.android.volley.toolbox.Volley;
+
+import java.util.ArrayList;
 
 import kr.applepi.summelier.R;
 import kr.applepi.summelier.util.BitmapLruCache;
 import kr.applepi.summelier.util.RoundedNetworkImageView;
 
-import static kr.applepi.summelier.R.id.REVIEW_PROFILE_NAME;
-import static kr.applepi.summelier.R.id.REVIEW_PROFILE_PHOTO;
-import static kr.applepi.summelier.R.id.REVIEW_PROFILE_RATING;
-import static kr.applepi.summelier.R.id.REVIEW_PROFILE_TEXT;
-
 public class ReviewAdapter extends ArrayAdapter<ReviewData> {
-    RequestQueue queue;
-    ImageLoader loader;
+    private RequestQueue queue;
+    private ImageLoader loader;
 
-    public ReviewAdapter(Context context) {
-        super(context, R.layout.row_review);
+    private TextView tvName, tvText, tvTimestamp;
+    private RoundedNetworkImageView ivProfile;
+    private RatingBar rating;
+
+    private LayoutInflater inflater;
+
+    private int resource;
+
+    public ReviewAdapter(Context context, int resource, ArrayList<ReviewData> objects) {
+        super(context, resource, objects);
         queue = Volley.newRequestQueue(context);
         loader = new ImageLoader(queue, new BitmapLruCache());
+
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        this.resource = resource;
     }
 
-    class BitmapCache implements ImageCache {
-
-        @Override
-        public Bitmap getBitmap(String arg0) {
-            // TODO Auto-generated method stub
-            return null;
-        }
-
-        @Override
-        public void putBitmap(String arg0, Bitmap arg1) {
-            // TODO Auto-generated method stub
-
-        }
-
-    }
-
-    View convertView;
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            LayoutInflater inf = (LayoutInflater)
-                    getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            convertView = inf.inflate(R.layout.row_review, parent, false);
-        }
 
         ReviewData data = getItem(position);
-        this.convertView = convertView;
-        RoundedNetworkImageView image = (RoundedNetworkImageView) fv(REVIEW_PROFILE_PHOTO);
-        TextView name = (TextView) fv(REVIEW_PROFILE_NAME);
-        RatingBar rating = (RatingBar) fv(REVIEW_PROFILE_RATING);
-        TextView text = (TextView) fv(REVIEW_PROFILE_TEXT);
 
-        image.setImageUrl(data.profileUrl, loader);
-        rating.setRating(data.rating);
-        rating.setIsIndicator(true);
-        name.setText(data.name);
-        text.setText(data.text);
+        if (convertView == null) {
 
+            convertView = inflater.inflate(resource, parent, false);
+        }
+
+        tvName = (TextView) convertView.findViewById(R.id.REVIEW_PROFILE_NAME);
+        tvText = (TextView) convertView.findViewById(R.id.REVIEW_PROFILE_TEXT);
+        tvTimestamp = (TextView) convertView.findViewById(R.id.review_tv_timestamp);
+
+        ivProfile = (RoundedNetworkImageView) convertView.findViewById(R.id.review_iv_profile);
+
+        rating = (RatingBar) convertView.findViewById(R.id.REVIEW_PROFILE_RATING);
+
+        ivProfile.setImageUrl(data.profileUrl, loader);
+
+        tvName.setText(data.name);
+        tvText.setText(data.text);
+
+        if (data.flag.equals("comment")) {
+            tvTimestamp.setText(data.timestamp);
+            rating.setVisibility(View.INVISIBLE);
+            tvTimestamp.setVisibility(View.VISIBLE);
+        } else {
+            rating.setRating(data.rating);
+            rating.setIsIndicator(true);
+            tvTimestamp.setVisibility(View.INVISIBLE);
+            rating.setVisibility(View.VISIBLE);
+        }
         return convertView;
-    }
-
-    private View fv(int id) {
-        return convertView.findViewById(id);
     }
 }

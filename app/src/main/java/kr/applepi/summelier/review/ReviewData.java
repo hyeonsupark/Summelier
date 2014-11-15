@@ -8,7 +8,7 @@ public class ReviewData {
 
     public String name,
             text,
-            profileUrl;
+            profileUrl, timestamp, flag;
     public float rating;
 
     public ReviewData(String profileUrl, String name, String text, float rating) {
@@ -16,7 +16,14 @@ public class ReviewData {
         this.name = name;
         this.text = text;
         this.rating = rating;
+        this.flag = "rating";
+}
+
+    public ReviewData(String profileUrl, String name, String text, String timestamp) {
+        this.timestamp = timestamp;
+        this.profileUrl = profileUrl;
+        this.text = text;
+        this.name = name;
+        this.flag = "comment";
     }
-
-
 }
