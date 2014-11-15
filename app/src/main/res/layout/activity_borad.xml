@@ -75,7 +75,7 @@
     </LinearLayout>
 
     <ListView
-        android:id="@+id/boards_lv"
+        android:id="@+id/boards_lv_comments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></ListView>
 </LinearLayout>
