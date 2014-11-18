@@ -1,5 +1,6 @@
 package kr.applepi.summelier.api;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -12,9 +13,16 @@ public class AsyncHttpRequest extends AsyncTask<Void, Void, HttpResponse>
 		HttpResponse request() throws Exception;
 	}
 
+	Context ctx;
 	Request _req;
 	ResponseListener _res;
-	
+
+	public AsyncHttpRequest(Context ctx, Request req, ResponseListener res)
+	{
+		this.ctx = ctx;
+		_req = req;
+		_res = res;
+	}
 	public AsyncHttpRequest(Request req, ResponseListener res)
 	{
 		_req = req;
@@ -27,7 +35,8 @@ public class AsyncHttpRequest extends AsyncTask<Void, Void, HttpResponse>
 	{
 		try
 		{
-			return _req.request();
+			HttpResponse res = _req.request();
+			return res;
 		}
 		catch (Exception e)
 		{
@@ -36,21 +45,15 @@ public class AsyncHttpRequest extends AsyncTask<Void, Void, HttpResponse>
 		}
 		return null;
 	}
-	
-	
+
 	@Override
-	protected void onPostExecute(HttpResponse result)
-	{
-		try
-		{
-			_res.onReponse(result);
+	protected void onPostExecute(HttpResponse httpResponse) {
+		try {
+			_res.onResponse(httpResponse);
 		}
-		catch (Exception e)
-		{
+		catch(Exception e) {
+			Log.d("Summelier REST API", "응답을 처리 중 예외가 발생했습니다.");
 			e.printStackTrace();
 		}
-		super.onPostExecute(result);
 	}
-
-	
 }

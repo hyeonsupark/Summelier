@@ -28,24 +28,24 @@
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/review_tv_timestamp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:text="1분 전"
-            android:textColor="#8d8d8d"
-            android:textSize="13sp" />
-
-        <TextView
             android:id="@+id/REVIEW_PROFILE_TEXT"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/REVIEW_PROFILE_NAME"
             android:layout_alignLeft="@+id/REVIEW_PROFILE_NAME"
-
             android:text="asdf" />
+
+
+
+        <TextView
+            android:id="@+id/REVIEW_PROFILE_TIME"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:text="1분 전"
+            android:textColor="#8d8d8d"
+            android:textSize="13sp" />
 
         <RatingBar
             android:id="@+id/REVIEW_PROFILE_RATING"
@@ -53,10 +53,14 @@
             android:layout_width="70dp"
             android:layout_height="14dp"
             android:layout_alignParentRight="true"
+            android:layout_below="@id/REVIEW_PROFILE_TIME"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="0dp"
             android:numStars="5"
-            android:stepSize="0.5" />
+            android:stepSize="0.5"
+            android:isIndicator="true"
+            />
+
     </RelativeLayout>
 
 

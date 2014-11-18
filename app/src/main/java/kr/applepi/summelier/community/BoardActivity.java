@@ -81,13 +81,13 @@ public class BoardActivity extends Activity {
 
         lvComments = (ListView) findViewById(R.id.board_lv_comments);
         commentLists = new ArrayList<ReviewData>();
-        commentAdapter = new ReviewAdapter(BoardActivity.this, R.layout.row_review, commentLists);
+        commentAdapter = new ReviewAdapter(BoardActivity.this);
         lvComments.setAdapter(commentAdapter);
 
+	    /*
         commentLists.add(new ReviewData("http://applepi.kr/~summelier/images/empty.png", "박현수", "ㅁㄴㅇㄹ", "1분 전"));
         commentLists.add(new ReviewData("http://applepi.kr/~summelier/images/empty.png", "김희규", "규미가 너무 좋앙", "0분 전"));
-        commentAdapter.notifyDataSetChanged();
-
+        commentAdapter.notifyDataSetChanged();/
         btnComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,6 +95,7 @@ public class BoardActivity extends Activity {
                 commentAdapter.add(new ReviewData("http://applepi.kr/~summelier/images/empty.png", "김희규", text, "하앜"));
             }
         });
+		*/
 
 
     }

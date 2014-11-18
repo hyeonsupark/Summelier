@@ -16,7 +16,9 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:background="@drawable/selector_btn_normal"
-            android:text="글 쓰기" />
+            android:text="글 쓰기"
+            android:textColor="@android:color/white"
+            />
 
 
     </RelativeLayout>

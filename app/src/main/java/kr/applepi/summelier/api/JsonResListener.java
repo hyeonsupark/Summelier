@@ -17,7 +17,7 @@ public class JsonResListener implements ResponseListener
 	}
 	
 	@Override
-	public void onReponse(HttpResponse res) throws Exception
+	public void onResponse(HttpResponse res) throws Exception
 	{
 		String text = EntityUtils.toString(
 				res.getEntity(), "utf-8"); 
@@ -28,7 +28,8 @@ public class JsonResListener implements ResponseListener
 		}
 		catch(JSONException e)
 		{
-			Log.d("FAILED JSON", text);
+			Log.d("Exception Occurred in dispatch result", text);
+			e.printStackTrace();
 		}
 	}
 

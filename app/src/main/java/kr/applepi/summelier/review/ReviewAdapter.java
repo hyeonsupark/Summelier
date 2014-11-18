@@ -30,14 +30,14 @@ public class ReviewAdapter extends ArrayAdapter<ReviewData> {
 
     private int resource;
 
-    public ReviewAdapter(Context context, int resource, ArrayList<ReviewData> objects) {
-        super(context, resource, objects);
+    public ReviewAdapter(Context context) {
+        super(context, R.layout.row_review, new ArrayList<ReviewData>());
         queue = Volley.newRequestQueue(context);
         loader = new ImageLoader(queue, new BitmapLruCache());
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        this.resource = resource;
+        this.resource = R.layout.row_review;
     }
 
 
@@ -53,27 +53,20 @@ public class ReviewAdapter extends ArrayAdapter<ReviewData> {
 
         tvName = (TextView) convertView.findViewById(R.id.REVIEW_PROFILE_NAME);
         tvText = (TextView) convertView.findViewById(R.id.REVIEW_PROFILE_TEXT);
-        tvTimestamp = (TextView) convertView.findViewById(R.id.review_tv_timestamp);
-
+        tvTimestamp = (TextView) convertView.findViewById(R.id.REVIEW_PROFILE_TIME);
         ivProfile = (RoundedNetworkImageView) convertView.findViewById(R.id.review_iv_profile);
-
         rating = (RatingBar) convertView.findViewById(R.id.REVIEW_PROFILE_RATING);
+
 
         ivProfile.setImageUrl(data.profileUrl, loader);
 
+
         tvName.setText(data.name);
         tvText.setText(data.text);
+        rating.setRating(data.rating);
+	    tvTimestamp.setText(data.timestamp);
+        rating.setIsIndicator(true);
 
-        if (data.flag.equals("comment")) {
-            tvTimestamp.setText(data.timestamp);
-            rating.setVisibility(View.INVISIBLE);
-            tvTimestamp.setVisibility(View.VISIBLE);
-        } else {
-            rating.setRating(data.rating);
-            rating.setIsIndicator(true);
-            tvTimestamp.setVisibility(View.INVISIBLE);
-            rating.setVisibility(View.VISIBLE);
-        }
         return convertView;
     }
 }

@@ -26,9 +26,17 @@
         android:theme="@style/AppTheme" >
 
         <!-- Debug Key -->
+        <!-- 햄스키
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyBzwQBf5TTK92XUijwXJa6fLpyyZ7sa2nk" />
+        -->
+
+        <!-- 희스키 -->
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyC0tGP13x-uPA6V94g33SLp9gH_efcgcYk" />
+
 
         <!-- Release Key -->
 

@@ -94,12 +94,19 @@ public class Api {
         StringBuilder where = new StringBuilder();
         for (int i : wheres)
             where.append(i).append(',');
-        where.deleteCharAt(where.length() - 1);
-
-        request(WELL, "get_wells")
-                .and("where", where.toString())
-                .post(res);
+        if(where.length() > 0)
+        {
+	        where.deleteCharAt(where.length() - 1);
+	        request(WELL, "get_wells")
+		        .and("where", where.toString())
+		        .post(res);
+        }
     }
+
+	public void getAllWells(ResultListener res){
+		request(WELL, "get_wells")
+				.post(res);
+	}
 
     public void addComment(String content, float rate, int wellId,
                            ResultListener res) {

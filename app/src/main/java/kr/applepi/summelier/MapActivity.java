@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -19,6 +21,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import kr.applepi.summelier.api.Api;
+import kr.applepi.summelier.api.ResultListener;
 import kr.applepi.summelier.community.BoardsActivity;
 import kr.applepi.summelier.review.ReviewActivity;
 
@@ -26,6 +33,26 @@ public class MapActivity extends FragmentActivity implements
         GoogleMap.OnMyLocationChangeListener, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnInfoWindowClickListener, View.OnClickListener {
 
     private GoogleMap map;
+	private String locations[] = {
+			"서울특별시",
+			"인천광역시",
+			"대전광역시",
+			"대구광역시",
+			"울산광역시",
+			"부산광역시",
+			"광주광역시",
+			"세종특별자치시",
+			"경기도",
+			"강원도",
+			"충청북도",
+			"충청남도",
+			"전라북도",
+			"전라남도",
+			"경상북도",
+			"경상남도",
+			"제주특별자치도",
+
+	};
 
     private Button btnRank, btnCommunity, btnSetting, btnRate;
     private TextView tvTitle, tvArticle;
@@ -67,8 +94,67 @@ public class MapActivity extends FragmentActivity implements
         map.setOnMyLocationChangeListener(this);
         map.setOnInfoWindowClickListener(this);
 
-        addMarker();
     }
+
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		loadMarkers();
+	}
+
+	void loadMarkers()
+	{
+
+		Api api = Api.get(this);
+		ResultListener lis = new ResultListener() {
+		@Override
+		public void onResult(boolean ok, JSONObject res) throws Exception {
+			if(ok)
+			{
+				JSONArray array = res.getJSONArray("wells");
+				for(int i = 0; i < array.length(); ++i)
+				{
+					addWell(array.getJSONObject(i));
+				}
+			}
+			else
+			{
+				Toast.makeText(
+						MapActivity.this,
+						"약수터 정보가 읽혀지지 않습니다.",
+						Toast.LENGTH_LONG
+				).show();
+			}
+		}};
+
+		Intent it = getIntent();
+
+		int []where = null;
+		if(it.hasExtra("where"))
+		{
+			where = getIntent().getIntArrayExtra("where");
+
+			api.getWells(lis, where);
+			Log.d("크하하", "약수터 정보를 내놔라!");
+		}
+		else
+		{
+			api.getAllWells(lis);
+			Log.d("크하하", "모-든 약수터 정보를 내놔라!");
+		}
+
+	}
+
+	void addWell(JSONObject well) throws Exception
+	{
+		addMarker (
+				well.getDouble("latitude"),
+				well.getDouble("longitude"),
+				locations[well.getInt("location")],
+				well.getString("name"),
+				well.getString("status")
+		);
+	}
 
     void addMarker() {
         addMarker(37.657843, 127.083503, "서울특별시", "천정샘", "2014 1분기 적합");
