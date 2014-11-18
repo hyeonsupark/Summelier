@@ -5,4 +5,5 @@ import org.apache.http.HttpResponse;
 public interface ResponseListener
 {
 	void onResponse(HttpResponse res) throws Exception;
+	void onExecute() throws Exception;
 }

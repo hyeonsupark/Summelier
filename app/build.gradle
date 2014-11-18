@@ -16,6 +16,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    signingConfigs {
+        release {
+            storeFile file("/keystore_release.jks")
+            storePassword "summelier"
+            keyAlias "Summelier"
+            keyPassword "Summelier"
+        }
+    }
     productFlavors {
     }
 }

@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -24,8 +26,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.TreeMap;
+
 import kr.applepi.summelier.api.Api;
 import kr.applepi.summelier.api.ResultListener;
+import kr.applepi.summelier.api.Well;
 import kr.applepi.summelier.community.BoardsActivity;
 import kr.applepi.summelier.review.ReviewActivity;
 
@@ -56,14 +61,15 @@ public class MapActivity extends FragmentActivity implements
 
     private Button btnRank, btnCommunity, btnSetting, btnRate;
     private TextView tvTitle, tvArticle;
-
     private RatingBar ratingBar;
-
     private AlertDialog dialog;
 
     private boolean firstCameraMovingFlag = true;
-
     private String placeTitle;
+	private int placeId;
+
+
+	TreeMap<String, Well> wellMap= new TreeMap<String, Well>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,14 +151,39 @@ public class MapActivity extends FragmentActivity implements
 
 	}
 
-	void addWell(JSONObject well) throws Exception
+	void addWell(JSONObject wellObj) throws Exception
 	{
-		addMarker (
-				well.getDouble("latitude"),
-				well.getDouble("longitude"),
-				locations[well.getInt("location")],
-				well.getString("name"),
-				well.getString("status")
+		BitmapDescriptor icon = null;
+
+		Well well = new Well();
+		well.status = wellObj.getString("status");
+		well.name = wellObj.getString("name");
+		well.latitude = (float)wellObj.getDouble("latitude");
+		well.longitude = (float)wellObj.getDouble("longitude");
+		well.id = wellObj.getInt("id");
+		well.location = wellObj.getInt("location");
+		well.rating = (float)wellObj.getDouble("rating");
+
+		String status = well.status;
+		if(status.equals("미점검"))
+			icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW);
+		else if(status.equals("폐쇄"))
+			icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET);
+		else if(status.equals("부적합"))
+			icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED);
+		else
+			icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
+
+
+		wellMap.put(well.name, well);
+
+		addMarker(
+				well.latitude,
+				well.longitude,
+				locations[well.location],
+				well.name,
+				well.status,
+				icon
 		);
 	}
 
@@ -178,32 +209,74 @@ public class MapActivity extends FragmentActivity implements
     }
 
     boolean firstMoved = false;
-    private void addMarker(double lat, double lon, String legion, String title, String snippet)
-    {
-        map.addMarker(new MarkerOptions().position(new LatLng(lat, lon)).title(title).snippet(snippet));
+	private void addMarker(double lat, double lon, String legion, String title, String snippet)
+	{
+		Log.d("지도 마커",
+				String.format(
+						"%s: %.4f %.4f %s",
+						title, lat, lon, snippet
+				));
+		map.addMarker(
+				new MarkerOptions()
+						.position(new LatLng(lat, lon))
+						.title(title)
+						.snippet(snippet)
+		);
 
-        if(!firstMoved) {
-            firstMoved = true;
-            map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(lat, lon)));
-            map.animateCamera(CameraUpdateFactory.zoomTo(10));
-        }
-    }
+		/*
+		if(!firstMoved) {
+			firstMoved = true;
+			map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(lat, lon)));
+			map.animateCamera(CameraUpdateFactory.zoomTo(10));
+		}
+		*/
+	}
+
+	private void addMarker(
+			double lat,
+			double lon,
+			String legion,
+			String title,
+			String snippet,
+			BitmapDescriptor icon
+	)
+	{
+//		Log.d("지도 마커",
+//				String.format(
+//						"%s: %.4f %.4f %s",
+//						title, lat, lon, snippet
+//				));
+		map.addMarker(
+				new MarkerOptions()
+						.position(new LatLng(lat, lon))
+						.title(title)
+						.snippet(snippet)
+						.icon(icon)
+		);
+
+		if(!firstMoved) {
+			firstMoved = true;
+			map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(lat, lon)));
+			map.animateCamera(CameraUpdateFactory.zoomTo(10));
+		}
+	}
 
 
-    @Override
+	@Override
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.map_btn_rank:
                 break;
             case R.id.map_btn_community:
-                startActivity(new Intent(MapActivity.this, BoardsActivity.class));
-
+                // startActivity(new Intent(MapActivity.this, BoardsActivity.class));
+				Toast.makeText(this, "아직 지원되지 않습니다, 기다려 주세요.", Toast.LENGTH_LONG).show();
                 break;
             case R.id.map_btn_setting:
                 break;
             case R.id.BTN_RATE:
                 Intent mIntent = new Intent(MapActivity.this, ReviewActivity.class);
                 mIntent.putExtra("placeTitle", placeTitle);
+	            mIntent.putExtra("placeId", placeId);
                 startActivity(mIntent);
 
                 break;
@@ -213,7 +286,12 @@ public class MapActivity extends FragmentActivity implements
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        placeTitle = marker.getTitle();
+	    placeTitle = marker.getTitle();
+	    Well well = wellMap.get(placeTitle);
+	    placeId = well.id;
+
+	    Log.d("정보창 클릭", placeTitle + " 랑 " + placeId);
+
         LayoutInflater inflater = LayoutInflater.from(MapActivity.this);
         View v = inflater.inflate(R.layout.dialog_marker, null);
 
@@ -224,7 +302,7 @@ public class MapActivity extends FragmentActivity implements
         btnRate.setOnClickListener(this);
 
         ratingBar = (RatingBar) v.findViewById(R.id.RATE_AVERAGE);
-        ratingBar.setRating(4.3F);
+        ratingBar.setRating(well.rating);
         ratingBar.setIsIndicator(true);
 
         AlertDialog.Builder alert = new AlertDialog.Builder(

@@ -2,6 +2,7 @@ package kr.applepi.summelier.review;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
@@ -72,17 +73,13 @@ public class ReviewActivity extends ActivityPlus {
 
 		listReview.setAdapter(adapter);
 
-		// TODO: 바꿔야댐
-		wellId = 2;
-		/*
-		int wellId = getIntent().getIntExtra("well_id", -1);
+		wellId = getIntent().getIntExtra("placeId", -1);
 		if(wellId == -1)
 		{
 			toast("확인할 약수터가 전달되지 않았습니다.", Toast.LENGTH_LONG);
 			finish();
 			return;
 		}
-		*/
 
 		api.getComments(
 				wellId,
@@ -166,15 +163,12 @@ public class ReviewActivity extends ActivityPlus {
 				}
 				else
 				{
-					Time time = new Time();
-					time.setToNow();
-
 					etReview.setText("");
 					addComment(new ReviewData(
 							api.profileUrl,
 							api.name,
 							text,
-							time.format("yyyy-MM-dd HH:mm"),
+							DateFormat.format("yyyy-MM-dd hh:mm:ss", new java.util.Date()).toString(),
 							rating
 					));
 					adapter.notifyDataSetChanged();

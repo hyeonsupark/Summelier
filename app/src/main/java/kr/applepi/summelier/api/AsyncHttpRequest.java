@@ -36,6 +36,7 @@ public class AsyncHttpRequest extends AsyncTask<Void, Void, HttpResponse>
 		try
 		{
 			HttpResponse res = _req.request();
+			_res.onResponse(res);
 			return res;
 		}
 		catch (Exception e)
@@ -49,7 +50,7 @@ public class AsyncHttpRequest extends AsyncTask<Void, Void, HttpResponse>
 	@Override
 	protected void onPostExecute(HttpResponse httpResponse) {
 		try {
-			_res.onResponse(httpResponse);
+			_res.onExecute();
 		}
 		catch(Exception e) {
 			Log.d("Summelier REST API", "응답을 처리 중 예외가 발생했습니다.");

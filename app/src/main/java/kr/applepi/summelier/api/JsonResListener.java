@@ -10,7 +10,8 @@ import org.json.JSONObject;
 public class JsonResListener implements ResponseListener
 {
 	ResultListener res;
-	
+	JSONObject json;
+
 	public JsonResListener(ResultListener res)
 	{
 		this.res = res;
@@ -20,17 +21,12 @@ public class JsonResListener implements ResponseListener
 	public void onResponse(HttpResponse res) throws Exception
 	{
 		String text = EntityUtils.toString(
-				res.getEntity(), "utf-8"); 
-		try {
-
-			JSONObject json = new JSONObject(text);
-			this.res.onResult(json.getBoolean("ok"), json);	
-		}
-		catch(JSONException e)
-		{
-			Log.d("Exception Occurred in dispatch result", text);
-			e.printStackTrace();
-		}
+				res.getEntity(), "utf-8");
+		json = new JSONObject(text);
 	}
 
+	@Override
+	public void onExecute() throws Exception {
+		this.res.onResult(json.getBoolean("ok"), json);
+	}
 }
