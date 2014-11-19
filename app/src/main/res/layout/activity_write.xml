@@ -16,8 +16,24 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:background="@drawable/selector_btn_normal"
-            android:text="글 쓰기"
+            android:text="작성"
             android:textColor="@android:color/white"
+            />
+        <Button
+            android:id="@+id/write_btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/selector_btn_normal"
+            android:text="취소"
+            android:textColor="@android:color/white"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/profileblank"
+            android:layout_centerInParent="true"
             />
 
 

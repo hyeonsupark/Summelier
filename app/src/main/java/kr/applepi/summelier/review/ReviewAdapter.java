@@ -29,16 +29,21 @@ public class ReviewAdapter extends ArrayAdapter<ReviewData> {
     private LayoutInflater inflater;
 
     private int resource;
+	private boolean showRating;
 
-    public ReviewAdapter(Context context) {
-        super(context, R.layout.row_review, new ArrayList<ReviewData>());
-        queue = Volley.newRequestQueue(context);
-        loader = new ImageLoader(queue, new BitmapLruCache());
+	public ReviewAdapter(Context context, boolean showRating) {
+		super(context, R.layout.row_review, new ArrayList<ReviewData>());
+		queue = Volley.newRequestQueue(context);
+		loader = new ImageLoader(queue, new BitmapLruCache());
 
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        this.resource = R.layout.row_review;
-    }
+		this.showRating = showRating;
+		this.resource = R.layout.row_review;
+	}
+	public ReviewAdapter(Context context) {
+		this(context, true);
+	}
 
 
     @Override
@@ -63,9 +68,15 @@ public class ReviewAdapter extends ArrayAdapter<ReviewData> {
 
         tvName.setText(data.name);
         tvText.setText(data.text);
-        rating.setRating(data.rating);
 	    tvTimestamp.setText(data.timestamp);
-        rating.setIsIndicator(true);
+
+	    if(showRating)
+	    {
+		    rating.setRating(data.rating);
+		    rating.setIsIndicator(true);
+	    }
+	    else
+	        rating.setVisibility(View.INVISIBLE);
 
         return convertView;
     }

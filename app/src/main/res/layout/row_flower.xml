@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_margin="10dp"
+    >
+
+    <ImageView
+        android:id="@+id/FLOWER_IMAGE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/flower1"
+        />
+
+    <TextView
+        android:id="@+id/FLOWER_NAME"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="양귀비"
+        android:textSize="14pt"
+        android:gravity="center_vertical"
+        />
+
+    <TextView
+        android:id="@+id/FLOWER_DATE_GAINED"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="2014-01-01"
+        android:gravity="right|center_vertical"
+        android:layout_gravity="right"
+        />
+
+</LinearLayout>

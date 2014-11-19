@@ -12,7 +12,7 @@ public class ReviewData {
 		    timestamp;
 
     public float rating;
-	public int id;
+	public int id, authorId;
 
 	public ReviewData()
 	{}

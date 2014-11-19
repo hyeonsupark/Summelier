@@ -16,7 +16,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:paddingLeft="10dp"
-            android:layout_weight="1">
+            android:layout_weight="3">
 
             <kr.applepi.summelier.util.RoundedNetworkImageView
                 android:id="@+id/boards_iv_profile"
@@ -33,44 +33,51 @@
                 android:layout_toRightOf="@+id/boards_iv_profile"
                 android:textColor="#242424"
                 android:textSize="15sp"
-                android:text="박현수" />
+                android:text="박현수"
+                android:textStyle="bold"
+                />
 
             <TextView
                 android:id="@+id/boards_tv_timestamp"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/boards_tv_name"
+                android:layout_alignParentRight="true"
                 android:layout_below="@+id/boards_tv_name"
-                android:textSize="13sp"
-                android:text="1분 전"
+                android:text="2014-01-01 00:00:00"
                 android:textColor="#8d8d8d"/>
         </RelativeLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
             android:paddingRight="10dp"
-            android:layout_weight="2.5">
+            android:layout_weight="2.5"
+            android:gravity="right"
+            >
+
 
             <ImageView
                 android:id="@+id/boards_iv_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/boards_tv_comment_count"
+                android:layout_gravity="center_vertical"
                 android:src="@drawable/comment"/>
-            
+
             <TextView
                 android:id="@+id/boards_tv_comment_count"
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="4dp"
+                android:gravity="center_vertical"
                 android:text="댓글 10개"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:textColor="#767676"/>
 
-        </RelativeLayout>
+
+        </LinearLayout>
 
 
     </LinearLayout>
@@ -85,6 +92,5 @@
         android:padding="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="요 나는 자연인 희규는 규미를 좋아하지 에블바디 외쳐 히귬희규미이무ㅗ라ㅣㅓㅁㄴ아ㅣ러ㅏㅣㄴㅇ머ㅏㅣㄹㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㅇ머ㅏㅣㅇㄹㄴ"/>
-
+        />
 </LinearLayout>

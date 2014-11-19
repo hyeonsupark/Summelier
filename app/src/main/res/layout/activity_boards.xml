@@ -11,6 +11,23 @@
         android:layout_height="48dp"
         android:background="@drawable/title" >
 
+
+        <Button
+            android:id="@+id/boards_btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/selector_btn_normal"
+            android:text="뒤로"
+            android:textColor="#ffffff"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/profileblank"
+            android:layout_centerInParent="true"
+            />
+
         <Button
             android:id="@+id/boards_btn_write"
             android:layout_width="wrap_content"

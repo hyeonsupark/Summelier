@@ -31,7 +31,8 @@ public class Api {
             AUTH = "http://applepi.kr/~summelier/app/auth.php",
             WELL = "http://applepi.kr/~summelier/app/well.php",
             RANK = "http://applepi.kr/~summelier/app/rank.php",
-            PROFILE = "http://applepi.kr/~summelier/app/profile.php",
+		    PROFILE = "http://applepi.kr/~summelier/app/profile.php",
+		    BOARD = "http://applepi.kr/~summelier/app/board.php",
             PROFILE_UPLOAD = "http://applepi.kr/~summelier/app/profile_upload.php",
             PROFILE_IMAGE_DIR = "http://applepi.kr/~summelier/images/",
 
@@ -149,10 +150,14 @@ public class Api {
      *
      */
     public void getProfileOf(int memberId, ResultListener res) {
-        request(PROFILE, "data")
-                .and("member_id", memberId)
-                .post(res);
+	    request(PROFILE, "data")
+			    .and("member_id", memberId)
+			    .post(res);
     }
+	public void getMyProfile(ResultListener res) {
+		request(PROFILE, "me")
+				.post(res);
+	}
 
 
     /*
@@ -167,6 +172,68 @@ public class Api {
 
         postAsync(PROFILE_UPLOAD, builder.build(), new JsonResListener(res));
     }
+
+	/*
+
+
+				게시판ㅇㄴㅇㄴㅇㄴ
+
+	  */
+	public void getPosts(
+			int index,
+			int count,
+	        ResultListener res
+	)
+	{
+		request(BOARD, "get_posts")
+				.and("index", index)
+				.and("count", count)
+				.post(res);
+	}
+
+	public void writePost(
+	        String content,
+	        ResultListener res
+	)
+	{
+		request(BOARD, "write_post")
+				.and("content", content)
+				.post(res);
+	}
+
+
+	public void addPostComment(
+			int postId,
+			String content,
+			ResultListener res
+	)
+	{
+		request(BOARD, "add_comment")
+				.and("post_id", postId)
+				.and("content", content)
+				.post(res);
+	}
+
+	public void deletePostComment(
+			int commentId,
+			ResultListener res
+	)
+	{
+		request(BOARD, "add_comment")
+				.and("comment_id", commentId)
+				.post(res);
+	}
+
+	public void getPostComments(
+			int postId,
+			ResultListener res
+	)
+	{
+		request(BOARD, "get_comments")
+				.and("post_id", postId)
+				.post(res);
+	}
+
 
     ///
     ///

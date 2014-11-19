@@ -1,19 +1,26 @@
 package kr.applepi.summelier.community;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Hyunsu on 2014-11-15.
  */
 public class BoardData {
 
-    private String profile, name, timestamp, commentsCount, text;
+    public String profile, name, timestamp, text;
+	public int id, authorId, commentsCount;
+	public List<String> photos = new ArrayList<String>();
 
-    public BoardData(String profile, String name, String timestamp, String commentsCount, String text) {
+    public BoardData(String profile, String name, String timestamp, int commentsCount, String text) {
         this.profile = profile;
         this.name = name;
         this.timestamp = timestamp;
         this.commentsCount = commentsCount;
         this.text = text;
     }
+
+	public BoardData(){}
 
     public String getName() {
         return name;
@@ -40,11 +47,11 @@ public class BoardData {
         this.timestamp = timestamp;
     }
 
-    public String getCommentsCount() {
+    public int getCommentsCount() {
         return commentsCount;
     }
 
-    public void setCommentsCount(String commentsCount) {
+    public void setCommentsCount(int commentsCount) {
         this.commentsCount = commentsCount;
     }
 

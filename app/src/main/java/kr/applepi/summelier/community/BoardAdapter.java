@@ -62,7 +62,7 @@ public class BoardAdapter extends ArrayAdapter<BoardData>{
         ivProfile.setImageUrl(data.getProfile(), imageLoader);
         tvName.setText(data.getName());
         tvTimestamp.setText(data.getTimestamp());
-        tvCommentsCount.setText(data.getCommentsCount());
+        tvCommentsCount.setText("댓글 " + data.getCommentsCount() + "개");
         tvText.setText(data.getText());
 
         return convertView;

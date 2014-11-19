@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -117,10 +118,26 @@ public class MapActivity extends FragmentActivity implements
 		public void onResult(boolean ok, JSONObject res) throws Exception {
 			if(ok)
 			{
-				JSONArray array = res.getJSONArray("wells");
-				for(int i = 0; i < array.length(); ++i)
+				Handler handler = new Handler();
+				final JSONArray array = res.getJSONArray("wells");
+				int count = array.length();
+				int interval = 3000 / count;
+
+				for(int i = 0; i < count; ++i)
 				{
-					addWell(array.getJSONObject(i));
+					final JSONObject obj = array.getJSONObject(i);
+					handler.postDelayed(new Runnable() {
+						@Override
+						public void run() {
+							try {
+								addWell(obj);
+							}
+							catch(Exception e)
+							{
+								e.printStackTrace();
+							}
+						}
+					}, interval * (i + 1));
 				}
 			}
 			else
@@ -268,19 +285,26 @@ public class MapActivity extends FragmentActivity implements
             case R.id.map_btn_rank:
                 break;
             case R.id.map_btn_community:
-                // startActivity(new Intent(MapActivity.this, BoardsActivity.class));
-				Toast.makeText(this, "아직 지원되지 않습니다, 기다려 주세요.", Toast.LENGTH_LONG).show();
+                 startActivity(new Intent(MapActivity.this, BoardsActivity.class));
+				//Toast.makeText(this, "아직 지원되지 않습니다, 기다려 주세요.", Toast.LENGTH_LONG).show();
                 break;
+
             case R.id.map_btn_setting:
-                break;
+            {
+	            Intent mIntent = new Intent(MapActivity.this, ProfileActivity.class);
+	            startActivity(mIntent);
+	            break;
+            }
+
             case R.id.BTN_RATE:
-                Intent mIntent = new Intent(MapActivity.this, ReviewActivity.class);
-                mIntent.putExtra("placeTitle", placeTitle);
+            {
+	            Intent mIntent = new Intent(MapActivity.this, ReviewActivity.class);
+	            mIntent.putExtra("placeTitle", placeTitle);
 	            mIntent.putExtra("placeId", placeId);
-                startActivity(mIntent);
+	            startActivity(mIntent);
 
-                break;
-
+	            break;
+            }
         }
     }
 
@@ -291,6 +315,9 @@ public class MapActivity extends FragmentActivity implements
 	    placeId = well.id;
 
 	    Log.d("정보창 클릭", placeTitle + " 랑 " + placeId);
+
+
+
 
         LayoutInflater inflater = LayoutInflater.from(MapActivity.this);
         View v = inflater.inflate(R.layout.dialog_marker, null);
@@ -305,29 +332,52 @@ public class MapActivity extends FragmentActivity implements
         ratingBar.setRating(well.rating);
         ratingBar.setIsIndicator(true);
 
+
+
+
         AlertDialog.Builder alert = new AlertDialog.Builder(
                 MapActivity.this);
         tvTitle.setText(placeTitle);
         tvArticle.setText(marker.getSnippet());
         alert.setView(v);
 
+
+
         dialog = alert.create();
         dialog.show();
     }
 
+
+
+	double myLat = 0, myLng = 0;
+	boolean isKnown = false;
+
     @Override
     public boolean onMyLocationButtonClick() {
-
+		if(isKnown)
+		{
+			map.moveCamera( CameraUpdateFactory.newLatLng(
+					new LatLng(
+							myLat,
+							myLng
+					)
+			))
+			;
+			map.animateCamera(CameraUpdateFactory.zoomTo(13));
+		}
         return false;
     }
 
     @Override
     public void onMyLocationChange(Location location) {
-        double latitude = location.getLatitude();
-        double longtitude = location.getLongitude();
+	    isKnown = true;
+        myLat  = location.getLatitude();
+        myLng = location.getLongitude();
 
-        LatLng latLng = new LatLng(latitude, longtitude);
-        if (firstCameraMovingFlag) {
+        LatLng latLng = new LatLng(myLat, myLng);
+
+        if (firstCameraMovingFlag)
+        {
             map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             map.animateCamera(CameraUpdateFactory.zoomTo(13));
             firstCameraMovingFlag = false;

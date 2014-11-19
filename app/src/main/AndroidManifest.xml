@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="kr.applepi.summelier" >
+    package="kr.applepi.summelier"
+    android:versionCode="2"
+    android:versionName="1.1"
+    >
 
     <permission
         android:name="kr.applepi.summelier.permisson.MAPS_RECEIVE"
@@ -33,17 +36,17 @@
         -->
 
         <!-- 희스키
+
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyC0tGP13x-uPA6V94g33SLp9gH_efcgcYk" />
-
-        -->
+-->
 
         <!-- Release Key -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyCYImLDLMQ-GVZO-9bG0gFLdGAfUT0bijM" />
-
+        <!-- -->
 
 
         <!-- <meta-data -->
