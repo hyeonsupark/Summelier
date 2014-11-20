@@ -19,6 +19,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,8 @@ public class Api {
             RANK = "http://applepi.kr/~summelier/app/rank.php",
 		    PROFILE = "http://applepi.kr/~summelier/app/profile.php",
 		    BOARD = "http://applepi.kr/~summelier/app/board.php",
-            PROFILE_UPLOAD = "http://applepi.kr/~summelier/app/profile_upload.php",
+		    PROFILE_UPLOAD = "http://applepi.kr/~summelier/app/upload_profile.php",
+		    PHOTO_UPLOAD = "http://applepi.kr/~summelier/app/upload_photo.php",
             PROFILE_IMAGE_DIR = "http://applepi.kr/~summelier/images/",
 
 
@@ -142,6 +144,10 @@ public class Api {
         request(RANK, "rank_comments")
                 .post(res);
     }
+	public void getWellReviewRanking(ResultListener res) {
+		request(RANK, "rank_well_reviews")
+				.post(res);
+	}
 
     /*
      *
@@ -167,11 +173,32 @@ public class Api {
      *
      */
     public void uploadProfileImage(File file, ResultListener res) {
-        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-        builder.addBinaryBody("profile", file);
+	    MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+	    builder.addBinaryBody("profile", file);
 
-        postAsync(PROFILE_UPLOAD, builder.build(), new JsonResListener(res));
+	    postAsync(PROFILE_UPLOAD, builder.build(), new JsonResListener(res));
     }
+
+	public void uploadProfileImage(InputStream input, ResultListener res) {
+		MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+		builder.addBinaryBody("profile", input);
+
+		postAsync(PROFILE_UPLOAD, builder.build(), new JsonResListener(res));
+	}
+	public void uploadPhotoImage(InputStream input, int postId, ResultListener res) {
+		MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+		builder.addBinaryBody("photo", input);
+		builder.addTextBody("post_id", postId + "");
+
+		postAsync(PHOTO_UPLOAD, builder.build(), new JsonResListener(res));
+	}
+	public void uploadPhotoImage(File file, int postId, ResultListener res) {
+		MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+		builder.addBinaryBody("photo", file);
+		builder.addTextBody("post_id", postId + "");
+
+		postAsync(PHOTO_UPLOAD, builder.build(), new JsonResListener(res));
+	}
 
 	/*
 

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      android:layout_width="match_parent"
+      android:layout_height="120dp"
+      android:padding="10dp"
+      android:background="@drawable/review"
+    >
+
+    <TextView
+        android:id="@+id/ROW_RANK_NUMBER"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="순위"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:textSize="12pt"
+        />
+    <RatingBar
+        android:id="@+id/ROW_RANK_RATING"
+        style="@style/smallStarRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_below="@id/ROW_RANK_NUMBER"
+        android:layout_marginRight="20dp"
+        android:isIndicator="true"
+        />
+
+    <TextView
+        android:id="@+id/ROW_RANK_AVERAGE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/ROW_RANK_RATING"
+        android:layout_alignRight="@id/ROW_RANK_RATING"
+        android:layout_below="@+id/ROW_RANK_RATING"
+        android:gravity="center"
+        android:text="점수"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="5dp"
+        />
+
+    <TextView
+        android:id="@+id/ROW_RANK_NAME"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/ROW_RANK_NUMBER"
+        android:text="약수터"
+        android:textSize="10pt"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        />
+
+    <TextView
+        android:id="@+id/ROW_RANK_ADDRESS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/ROW_RANK_NAME"
+        android:text="주소"
+        android:textColor="@android:color/black"
+        />
+
+    <TextView
+        android:id="@+id/ROW_RANK_STATUS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="정상"
+        android:textColor="@android:color/black"
+        android:layout_marginLeft="40dp"
+        />
+
+    <TextView
+        android:id="@+id/ROW_RANK_REVIEWS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0개 리뷰"
+        android:textColor="@android:color/black"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/ROW_RANK_REVIEWS"
+        android:layout_alignTop="@id/ROW_RANK_REVIEWS"
+        android:src="@drawable/comment"
+        android:layout_marginRight="3dp"
+        />
+
+
+
+</RelativeLayout>

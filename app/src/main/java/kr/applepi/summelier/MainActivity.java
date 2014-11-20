@@ -27,7 +27,8 @@ public class MainActivity extends Activity {
         btnRegional.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+	            Intent mIntent = new Intent(MainActivity.this, RegionActivity.class);
+	            startActivity(mIntent);
             }
         });
 

@@ -33,13 +33,14 @@ import kr.applepi.summelier.api.Api;
 import kr.applepi.summelier.api.ResultListener;
 import kr.applepi.summelier.api.Well;
 import kr.applepi.summelier.community.BoardsActivity;
+import kr.applepi.summelier.rank.RankActivity;
 import kr.applepi.summelier.review.ReviewActivity;
 
 public class MapActivity extends FragmentActivity implements
         GoogleMap.OnMyLocationChangeListener, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnInfoWindowClickListener, View.OnClickListener {
 
     private GoogleMap map;
-	private String locations[] = {
+	public static final String LOCATIONS[] = {
 			"서울특별시",
 			"인천광역시",
 			"대전광역시",
@@ -104,9 +105,15 @@ public class MapActivity extends FragmentActivity implements
     }
 
 	@Override
-	protected void onPostCreate(Bundle savedInstanceState) {
-		super.onPostCreate(savedInstanceState);
-		loadMarkers();
+	protected void onPostCreate(Bundle bundle) {
+		super.onResume();
+		Handler handler = new Handler();
+		handler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				loadMarkers();
+			}
+		}, 1000);
 	}
 
 	void loadMarkers()
@@ -121,7 +128,7 @@ public class MapActivity extends FragmentActivity implements
 				Handler handler = new Handler();
 				final JSONArray array = res.getJSONArray("wells");
 				int count = array.length();
-				int interval = 3000 / count;
+				int interval = 100;
 
 				for(int i = 0; i < count; ++i)
 				{
@@ -180,6 +187,8 @@ public class MapActivity extends FragmentActivity implements
 		well.id = wellObj.getInt("id");
 		well.location = wellObj.getInt("location");
 		well.rating = (float)wellObj.getDouble("rating");
+		well.content = wellObj.getString("content");
+		well.address = wellObj.getString("address");
 
 		String status = well.status;
 		if(status.equals("미점검"))
@@ -197,7 +206,7 @@ public class MapActivity extends FragmentActivity implements
 		addMarker(
 				well.latitude,
 				well.longitude,
-				locations[well.location],
+				LOCATIONS[well.location],
 				well.name,
 				well.status,
 				icon
@@ -283,7 +292,11 @@ public class MapActivity extends FragmentActivity implements
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.map_btn_rank:
-                break;
+            {
+	            Intent mIntent = new Intent(MapActivity.this, RankActivity.class);
+	            startActivity(mIntent);
+	            break;
+            }
             case R.id.map_btn_community:
                  startActivity(new Intent(MapActivity.this, BoardsActivity.class));
 				//Toast.makeText(this, "아직 지원되지 않습니다, 기다려 주세요.", Toast.LENGTH_LONG).show();
@@ -301,8 +314,8 @@ public class MapActivity extends FragmentActivity implements
 	            Intent mIntent = new Intent(MapActivity.this, ReviewActivity.class);
 	            mIntent.putExtra("placeTitle", placeTitle);
 	            mIntent.putExtra("placeId", placeId);
+	            dialog.dismiss();
 	            startActivity(mIntent);
-
 	            break;
             }
         }
@@ -338,7 +351,14 @@ public class MapActivity extends FragmentActivity implements
         AlertDialog.Builder alert = new AlertDialog.Builder(
                 MapActivity.this);
         tvTitle.setText(placeTitle);
-        tvArticle.setText(marker.getSnippet());
+        tvArticle.setText(
+		        String.format(
+				        "%s, %s\n%s",
+				        well.status,
+				        well.content,
+				        well.address
+		        )
+        );
         alert.setView(v);
 
 

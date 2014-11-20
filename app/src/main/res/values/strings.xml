@@ -13,9 +13,9 @@
     <string name="title_activity_board">BoardActivity</string>
     <string name="title_activity_write">WriteActivity</string>
     <string name="title_activity_rank">RankActivity</string>
-
-
     <string name="logout">로그아웃</string>
     <string name="default_profile_url">http://applepi.kr/~summelier/images/empty.png</string>
     <string name="unknown">알 수 없음</string>
+    <string name="title_activity_region">RegionActivity</string>
+
 </resources>

@@ -27,7 +27,7 @@ public class BoardsActivity extends ActivityPlus implements AdapterView.OnItemCl
     private BoardAdapter boardAdapter;
     private ArrayList<BoardData> boardLists;
 	Api api;
-	int pageIndex = 0, postsInPage = 10;
+	int pageIndex = 0, postsInPage = 10, totalPost = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +70,31 @@ public class BoardsActivity extends ActivityPlus implements AdapterView.OnItemCl
 			    onBackPressed();
 		    }
 	    });
+
+	    onClick(R.id.BOARDS_NEXT, new View.OnClickListener() {
+		    @Override
+		    public void onClick(View view) {
+
+			    int newIndex = pageIndex + 1;
+			    if(newIndex * postsInPage > totalPost) return;
+
+			    pageIndex = newIndex;
+			    refreshBoard();
+			    text_(R.id.BOARDS_INDEX, "" + (newIndex + 1));
+		    }
+	    });
+	    onClick(R.id.BOARDS_BEFORE, new View.OnClickListener() {
+		    @Override
+		    public void onClick(View view) {
+
+			    int newIndex = pageIndex - 1;
+			    if(newIndex < 0) return;
+
+			    pageIndex = newIndex;
+			    refreshBoard();
+			    text_(R.id.BOARDS_INDEX, "" + (newIndex + 1));
+		    }
+	    });
     }
 
 	private void loadPosts()
@@ -86,6 +111,8 @@ public class BoardsActivity extends ActivityPlus implements AdapterView.OnItemCl
 				return;
 			}
 
+			totalPost = res.getInt("total_post");
+			Log.d("총 게시물 수", totalPost + "");
 			JSONArray posts = res.getJSONArray("posts");
 			for(int i = 0; i < posts.length(); ++i)
 				addPost(posts.getJSONObject(i));

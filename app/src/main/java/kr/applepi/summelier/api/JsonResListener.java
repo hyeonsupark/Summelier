@@ -20,9 +20,17 @@ public class JsonResListener implements ResponseListener
 	@Override
 	public void onResponse(HttpResponse res) throws Exception
 	{
-		String text = EntityUtils.toString(
-				res.getEntity(), "utf-8");
-		json = new JSONObject(text);
+		String text = null;
+		try {
+			text = EntityUtils.toString(
+					res.getEntity(), "utf-8");
+			json = new JSONObject(text);
+		}
+		catch(Exception e)
+		{
+			Log.d("응답", text);
+			throw e;
+		}
 	}
 
 	@Override

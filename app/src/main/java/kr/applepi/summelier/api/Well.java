@@ -5,8 +5,8 @@ package kr.applepi.summelier.api;
  */
 public class Well {
 
-	public int id, location;
-	public String name, status;
+	public int id, location, numReviews;
+	public String name, status, content, address;
 	public float rating;
 	public double latitude, longitude;
 

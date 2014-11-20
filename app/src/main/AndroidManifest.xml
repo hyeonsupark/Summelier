@@ -2,8 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="kr.applepi.summelier"
     android:versionCode="2"
-    android:versionName="1.1"
-    >
+    android:versionName="1.1" >
 
     <permission
         android:name="kr.applepi.summelier.permisson.MAPS_RECEIVE"
@@ -17,6 +16,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -29,24 +29,25 @@
         android:theme="@style/AppTheme" >
 
         <!-- Debug Key -->
-        <!-- 햄스키
+        <!--
+        햄스키
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyBzwQBf5TTK92XUijwXJa6fLpyyZ7sa2nk" />
         -->
 
-        <!-- 희스키
 
+<!--  희스키
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyC0tGP13x-uPA6V94g33SLp9gH_efcgcYk" />
 -->
-
         <!-- Release Key -->
-        <meta-data
+
+             <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyCYImLDLMQ-GVZO-9bG0gFLdGAfUT0bijM" />
-        <!-- -->
+        <!---->
 
 
         <!-- <meta-data -->
@@ -101,7 +102,13 @@
         </activity>
         <activity
             android:name=".rank.RankActivity"
-            android:label="@string/title_activity_rank" >
+            android:label="@string/title_activity_rank"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".RegionActivity"
+            android:label="@string/title_activity_region"
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
     </application>
 

@@ -5,6 +5,10 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.util.EntityUtils;
+
+import java.io.IOError;
+import java.io.IOException;
 
 public class AsyncHttpRequest extends AsyncTask<Void, Void, HttpResponse>
 {
@@ -16,6 +20,7 @@ public class AsyncHttpRequest extends AsyncTask<Void, Void, HttpResponse>
 	Context ctx;
 	Request _req;
 	ResponseListener _res;
+
 
 	public AsyncHttpRequest(Context ctx, Request req, ResponseListener res)
 	{
@@ -33,9 +38,10 @@ public class AsyncHttpRequest extends AsyncTask<Void, Void, HttpResponse>
 	@Override
 	protected HttpResponse doInBackground(Void... params)
 	{
+		HttpResponse res = null;
 		try
 		{
-			HttpResponse res = _req.request();
+			 res = _req.request();
 			_res.onResponse(res);
 			return res;
 		}

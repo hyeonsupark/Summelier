@@ -93,4 +93,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
+
+    <Gallery
+        android:id="@+id/BOARD_GALLERY"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        </Gallery>
+
 </LinearLayout>
